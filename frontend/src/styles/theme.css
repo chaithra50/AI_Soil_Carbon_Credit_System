@@ -1,0 +1,171 @@
+:root {
+  /* --- Palette --- */
+  --loam: #211a12;
+  --moss: #4b6043;
+  --moss-dark: #374832;
+  --wheat: #c9a227;
+  --wheat-soft: #e4c65e;
+  --paper: #f6f3ea;
+  --paper-dim: #ece7d8;
+  --ink: #2b2a25;
+  --sage: #8a9a7b;
+  --danger: #a1442f;
+  --border: rgba(43, 42, 37, 0.14);
+
+  /* --- Type --- */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --radius: 4px;
+  --shadow: 0 1px 2px rgba(33, 26, 18, 0.06), 0 4px 16px rgba(33, 26, 18, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; margin: 0 0 0.4em; letter-spacing: -0.01em; }
+h1 { font-size: 2.6rem; font-weight: 500; }
+h2 { font-size: 1.7rem; }
+h3 { font-size: 1.25rem; }
+p { margin: 0 0 1em; color: var(--ink); }
+a { color: var(--moss-dark); }
+code, .mono { font-family: var(--font-mono); font-size: 0.85em; }
+
+button {
+  font-family: var(--font-body);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.65rem 1.2rem;
+  cursor: pointer;
+  transition: transform 0.08s ease, background 0.15s ease;
+}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--wheat);
+  outline-offset: 2px;
+}
+button.primary { background: var(--moss); color: var(--paper); }
+button.primary:hover { background: var(--moss-dark); }
+button.gold { background: var(--wheat); color: var(--loam); }
+button.gold:hover { background: var(--wheat-soft); }
+button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+button.ghost:hover { background: var(--paper-dim); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+input, select, textarea {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+
+label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--moss-dark); text-transform: uppercase; letter-spacing: 0.04em; }
+.field { margin-bottom: 1rem; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* --- Signature element: the "plot card" - a card with a clipped polygon corner,
+   echoing the farm-boundary polygon the farmer draws on the map. --- */
+.plot-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.4rem 1.6rem;
+  position: relative;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sage);
+  margin-bottom: 0.35rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: var(--paper-dim);
+  color: var(--moss-dark);
+}
+.badge.ok { background: rgba(75, 96, 67, 0.14); color: var(--moss-dark); }
+.badge.warn { background: rgba(201, 162, 39, 0.18); color: #7a5f10; }
+.badge.off { background: rgba(43, 42, 37, 0.08); color: var(--sage); }
+
+/* --- Ledger cycle tracker: two stamps connected by a rail --- */
+.cycle-rail {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 1.5rem 0;
+}
+.cycle-stamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 120px;
+}
+.cycle-stamp .dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: #fff;
+}
+.cycle-stamp.done .dot { border-color: var(--moss); background: var(--moss); color: #fff; }
+.cycle-stamp .label { font-size: 0.78rem; font-weight: 600; }
+.cycle-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  position: relative;
+  top: -14px;
+}
+.cycle-line.done { background: var(--moss); }
+
+.error-banner {
+  background: rgba(161, 68, 47, 0.1);
+  border: 1px solid rgba(161, 68, 47, 0.3);
+  color: var(--danger);
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.grid { display: grid; gap: 1.2rem; }
+.grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 720px) {
+  .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
+  h1 { font-size: 2rem; }
+}
